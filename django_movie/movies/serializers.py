@@ -1,6 +1,6 @@
-# from rest_framework import serializers
+from rest_framework import serializers
 
-# from .models import Movie, Review, Rating, Actor
+from .models import Movie, Review, Rating, Actor
 
 
 # class FilterReviewListSerializer(serializers.ListSerializer):
@@ -31,14 +31,17 @@
 #         fields = "__all__"
 
 
-# class MovieListSerializer(serializers.ModelSerializer):
-#     """Список фильмов"""
-#     rating_user = serializers.BooleanField()
-#     middle_star = serializers.IntegerField()
+class MovieListSerializer(serializers.ModelSerializer):
+    """Movie List"""
+    rating_user = serializers.BooleanField()
+    middle_star = serializers.IntegerField()
 
-#     class Meta:
-#         model = Movie
-#         fields = ("id", "title", "tagline", "category", "rating_user", "middle_star", "poster")
+    class Meta:
+        model = Movie
+        fields = (
+            "id", "title", "tagline", "category", "rating_user", 
+            "middle_star", "poster"
+        )
 
 
 # class ReviewCreateSerializer(serializers.ModelSerializer):
@@ -59,17 +62,25 @@
 #         fields = ("id", "name", "text", "children")
 
 
-# class MovieDetailSerializer(serializers.ModelSerializer):
-#     """Полный фильм"""
-#     category = serializers.SlugRelatedField(slug_field="name", read_only=True)
-#     directors = ActorListSerializer(read_only=True, many=True)
-#     actors = ActorListSerializer(read_only=True, many=True)
-#     genres = serializers.SlugRelatedField(slug_field="name", read_only=True, many=True)
-#     reviews = ReviewSerializer(many=True)
+class MovieDetailSerializer(serializers.ModelSerializer):
+    """Movie description"""
+    category = serializers.SlugRelatedField(slug_field="name", read_only=True)
+    directors = serializers.SlugRelatedField(
+        slug_field="name", read_only=True, many=True
+    )
+    # directors = ActorListSerializer(read_only=True, many=True)
+    actors = serializers.SlugRelatedField(
+        slug_field="name", read_only=True, many=True
+    )
+    # actors = ActorListSerializer(read_only=True, many=True)
+    genres = serializers.SlugRelatedField(
+        slug_field="name", read_only=True, many=True
+    )
+    # reviews = ReviewSerializer(many=True)
 
-#     class Meta:
-#         model = Movie
-#         exclude = ("draft",)
+    class Meta:
+        model = Movie
+        exclude = ("draft",)
 
 
 # class CreateRatingSerializer(serializers.ModelSerializer):
