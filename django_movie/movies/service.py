@@ -1,8 +1,8 @@
 # from django_filters import rest_framework as filters
-# from rest_framework.pagination import PageNumberPagination
-# from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.response import Response
 
-# from .models import Movie
+from .models import Movie
 
 
 # class PaginationMovies(PageNumberPagination):
@@ -20,14 +20,14 @@
 #         })
 
 
-# def get_client_ip(request):
-#     """Получение IP пользоваеля"""
-#     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-#     if x_forwarded_for:
-#         ip = x_forwarded_for.split(',')[0]
-#     else:
-#         ip = request.META.get('REMOTE_ADDR')
-#     return ip
+def get_client_ip(request):
+    """Get user IP"""
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
 
 
 # class CharFilterInFilter(filters.BaseInFilter, filters.CharFilter):

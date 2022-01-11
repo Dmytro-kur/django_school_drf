@@ -132,9 +132,7 @@ class Rating(models.Model):
         RatingStar, on_delete=models.CASCADE, verbose_name="star"
     )
     movie = models.ForeignKey(
-        Movie,
-        on_delete=models.CASCADE,
-        verbose_name="movie",
+        Movie, on_delete=models.CASCADE, verbose_name="movie", 
         related_name="ratings"
     )
 
