@@ -6,13 +6,13 @@ from .models import Movie, Review, Rating, Actor
 class MovieListSerializer(serializers.ModelSerializer):
     """Movie List"""
     rating_user = serializers.BooleanField()
-    # middle_star = serializers.IntegerField()
+    middle_star = serializers.IntegerField()
 
     class Meta:
         model = Movie
         fields = (
             "id", "title", "tagline", "category", 
-            "rating_user", #"middle_star", "poster"
+            "rating_user", "middle_star", #"poster"
         )
 
 
@@ -34,7 +34,6 @@ class RecursiveSerializer(serializers.Serializer):
 class FilterReviewListSerializer(serializers.ListSerializer):
     """Review filter for parents only"""
     def to_representation(self, data):
-        print("DATA: ", data.all())
         data = data.filter(parent=None)
         return super().to_representation(data)
 
